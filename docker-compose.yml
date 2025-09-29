@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  wikipedia:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - cache:/app/cache
+    environment:
+      - NODE_ENV=production
+volumes:
+  cache:
