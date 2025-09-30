@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wikipedia — The Free Encyclopedia (Clone)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Linux+Libertine:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
+    <script defer src="./script.js"></script>
+</head>
+<body>
+    <main class="page">
+        <section class="hero">
+            <div class="brand">
+                <h1 class="brand__title">Wikipedia</h1>
+                <p class="brand__tag">The Free Encyclopedia</p>
+            </div>
+
+            <div class="globe" aria-label="Language selection cloud">
+                <img class="globe__img" alt="Wikipedia Globe" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Wikipedia-logo-v2.svg/768px-Wikipedia-logo-v2.svg.png">
+
+                <ul class="lang-cloud">
+                    <li style="--x:-180; --y:-60"><a data-lang="en" href="https://en.wikipedia.org" target="_blank" rel="noreferrer noopener"><span class="lang">English</span><span class="meta" data-count="en">—</span></a></li>
+                    <li style="--x:180; --y:-60"><a data-lang="ja" href="https://ja.wikipedia.org" target="_blank" rel="noreferrer noopener"><span class="lang">日本語</span><span class="meta" data-count="ja">—</span></a></li>
+                    <li style="--x:-210; --y:10"><a data-lang="ru" href="https://ru.wikipedia.org" target="_blank" rel="noreferrer noopener"><span class="lang">Русский</span><span class="meta" data-count="ru">—</span></a></li>
+                    <li style="--x:210; --y:10"><a data-lang="de" href="https://de.wikipedia.org" target="_blank" rel="noreferrer noopener"><span class="lang">Deutsch</span><span class="meta" data-count="de">—</span></a></li>
+                    <li style="--x:-200; --y:80"><a data-lang="fr" href="https://fr.wikipedia.org" target="_blank" rel="noreferrer noopener"><span class="lang">Français</span><span class="meta" data-count="fr">—</span></a></li>
+                    <li style="--x:200; --y:80"><a data-lang="es" href="https://es.wikipedia.org" target="_blank" rel="noreferrer noopener"><span class="lang">Español</span><span class="meta" data-count="es">—</span></a></li>
+                    <li style="--x:-120; --y:150"><a data-lang="zh" href="https://zh.wikipedia.org" target="_blank" rel="noreferrer noopener"><span class="lang">中文</span><span class="meta" data-count="zh">—</span></a></li>
+                    <li style="--x:120; --y:150"><a data-lang="it" href="https://it.wikipedia.org" target="_blank" rel="noreferrer noopener"><span class="lang">Italiano</span><span class="meta" data-count="it">—</span></a></li>
+                    <li style="--x:-40; --y:210"><a data-lang="pl" href="https://pl.wikipedia.org" target="_blank" rel="noreferrer noopener"><span class="lang">Polski</span><span class="meta" data-count="pl">—</span></a></li>
+                    <li style="--x:40; --y:210"><a data-lang="pt" href="https://pt.wikipedia.org" target="_blank" rel="noreferrer noopener"><span class="lang">Português</span><span class="meta" data-count="pt">—</span></a></li>
+                </ul>
+            </div>
+
+            <form class="search" id="searchForm" action="#" onsubmit="return false;">
+                <input class="search__input" id="searchInput" placeholder="Search Wikipedia" aria-label="Search Wikipedia">
+                <select class="search__select" id="langSelect" aria-label="Language">
+                    <option value="en">EN</option>
+                    <option value="es">ES</option>
+                    <option value="de">DE</option>
+                    <option value="fr">FR</option>
+                    <option value="ru">RU</option>
+                    <option value="ja">JA</option>
+                    <option value="zh">ZH</option>
+                    <option value="it">IT</option>
+                    <option value="pt">PT</option>
+                    <option value="pl">PL</option>
+                    <option value="ar">AR</option>
+                    <option value="nl">NL</option>
+                    <option value="sv">SV</option>
+                    <option value="uk">UK</option>
+                </select>
+                <button class="search__btn" id="searchBtn" type="submit" aria-label="Search">🔎</button>
+            </form>
+
+            <div class="lang-switch">
+                <button class="lang-switch__btn" id="openLang">🌐 <span data-i18n="readInYourLanguage">Read Wikipedia in your language</span> ▾</button>
+            </div>
+        </section>
+
+        <dialog class="lang-modal" id="langModal">
+            <div class="lang-modal__header">
+                <strong data-i18n="languages">Languages</strong>
+                <button id="closeLang" aria-label="Close">✕</button>
+            </div>
+            <div class="lang-modal__list" id="langList" aria-label="All languages"></div>
+        </dialog>
+
+        <section class="sister">
+            <div class="sister__grid">
+                <a class="sister__card" href="#">
+                    <div class="ic">🖼️</div>
+                    <div>
+                        <div class="title">Commons</div>
+                        <div class="desc">Free media collection</div>
+                    </div>
+                </a>
+                <a class="sister__card" href="#">
+                    <div class="ic">🧭</div>
+                    <div>
+                        <div class="title">Wikivoyage</div>
+                        <div class="desc">Free travel guide</div>
+                    </div>
+                </a>
+                <a class="sister__card" href="#">
+                    <div class="ic">📘</div>
+                    <div>
+                        <div class="title">Wiktionary</div>
+                        <div class="desc">Free dictionary</div>
+                    </div>
+                </a>
+                <a class="sister__card" href="#">
+                    <div class="ic">📚</div>
+                    <div>
+                        <div class="title">Wikibooks</div>
+                        <div class="desc">Free textbooks</div>
+                    </div>
+                </a>
+                <a class="sister__card" href="#">
+                    <div class="ic">📰</div>
+                    <div>
+                        <div class="title">Wikinews</div>
+                        <div class="desc">Free news source</div>
+                    </div>
+                </a>
+                <a class="sister__card" href="#">
+                    <div class="ic">📊</div>
+                    <div>
+                        <div class="title">Wikidata</div>
+                        <div class="desc">Free knowledge base</div>
+                    </div>
+                </a>
+                <a class="sister__card" href="#">
+                    <div class="ic">🎓</div>
+                    <div>
+                        <div class="title">Wikiversity</div>
+                        <div class="desc">Free learning resources</div>
+                    </div>
+                </a>
+                <a class="sister__card" href="#">
+                    <div class="ic">💬</div>
+                    <div>
+                        <div class="title">Wikiquote</div>
+                        <div class="desc">Free quote compendium</div>
+                    </div>
+                </a>
+                <a class="sister__card" href="#">
+                    <div class="ic">⚙️</div>
+                    <div>
+                        <div class="title">MediaWiki</div>
+                        <div class="desc">Free & open wiki software</div>
+                    </div>
+                </a>
+                <a class="sister__card" href="#">
+                    <div class="ic">🔬</div>
+                    <div>
+                        <div class="title">Wikispecies</div>
+                        <div class="desc">Free species directory</div>
+                    </div>
+                </a>
+                <a class="sister__card" href="#">
+                    <div class="ic">🧩</div>
+                    <div>
+                        <div class="title">Wikifunctions</div>
+                        <div class="desc">Free function library</div>
+                    </div>
+                </a>
+                <a class="sister__card" href="#">
+                    <div class="ic">🧭</div>
+                    <div>
+                        <div class="title">Meta‑Wiki</div>
+                        <div class="desc">Community coordination & documentation</div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="legal">
+                <span>This page is available under the </span>
+                <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer noopener">Creative Commons Attribution-ShareAlike License</a>
+                <span>. </span>
+                <a href="https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use" target="_blank" rel="noreferrer noopener">Terms of Use</a>
+                <span> · </span>
+                <a href="https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy" target="_blank" rel="noreferrer noopener">Privacy Policy</a>
+            </div>
+        </footer>
+    </main>
+</body>
+</html>
+
+
