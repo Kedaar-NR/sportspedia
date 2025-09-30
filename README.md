@@ -1,113 +1,175 @@
-Sportspedia
+# Sportspedia
 
-Overview
+A fast, sports-first reader built with Next.js. Browse leagues, jump to teams, and read hosted Wikipedia articles without leaving the site. Baseball coverage includes live MiLB rosters and MLB player pages with season and career stats, all from official public APIs.
 
-Sportspedia is a Next.js application that provides a fast, sports‑focused reader experience with hosted Wikipedia articles, league → team navigation, logos, and live rosters/stats for baseball via official APIs.
+## Table of contents
 
-Key features
+* Features
+* Getting started
+* Useful scripts
+* Project structure
+* Data sources
+* Images and logos
+* Accuracy, tiers, and divisions
+* Troubleshooting
+* Deploy notes
+* Committing and pushing
+* License
 
-- Next.js App Router (server components by default)
-- Home with major leagues and accurate flags/logos
-- League pages
-  - Tier/division selector with persistence (localStorage)
-  - Sorting A–Z / Z–A (URL driven)
-  - Hosted article links (no redirect) to internal article route
-  - Logos: Wikipedia PageImages first, then Wikidata P154 crest fallback
-- Article reader
-  - Renders Wikipedia REST mobile‑html inside the site
-  - Left breadcrumbs and right table of contents
-- Baseball (MLB/MiLB)
-  - Live MiLB team rosters via MLB Stats API
-  - Player pages with season/career stat lines
+---
 
-Getting started
+## Features
 
-Prerequisites
+**Next.js App Router**
+Server components by default for speed and a clean data flow.
 
-- Node 18+ (or the version supported by Next.js 14)
+**Home**
+Major leagues with accurate flags and logos.
 
-Install and run
+**League pages**
 
-1) Install dependencies
+* Tier or division selector with persistence via localStorage
+* Sorting A–Z or Z–A driven by the URL
+* Hosted article links that route internally to the article reader
+* Logos that prefer Wikipedia PageImages, with a Wikidata crest fallback
 
-   npm install
+**Article reader**
 
-2) Start the dev server (uses port 3010)
+* Renders Wikipedia REST mobile-html inside the site
+* Left rail breadcrumbs
+* Right rail table of contents
 
-   npm run dev
+**Baseball**
 
-3) Open the app
+* Live MiLB team rosters from the MLB Stats API
+* MLB player pages with season and career stat lines
 
-   http://localhost:3010
+---
 
-Useful scripts
+## Getting started
 
-- npm run ports:kill  — frees ports 3000/3001/3010 on macOS
-- npm run dev        — start Next Dev on 3010
-- npm run build      — build production
-- npm run start      — run production server on 3010
+### Prerequisites
 
-Project structure (important bits)
+* Node 18 or later that is compatible with Next.js 14
 
-- app/
-  - page.tsx                  — home
-  - layout.tsx                — global layout + inlined global styles
-  - league/[league]/page.tsx  — league page (tiers, sorting, team list)
-  - article/[lang]/[title]/   — hosted Wikipedia article
-  - mlb/player/[id]/page.tsx  — MLB player stats page
-  - milb/                     — MiLB list and team roster pages
-- components/
-  - Autocomplete.tsx          — site search (Wikipedia OpenSearch proxy)
-  - Breadcrumbs.tsx           — left rail breadcrumbs
-  - TierControls.tsx          — tier/division selector with persistence
-  - Toc.tsx                   — dynamic table of contents (right rail)
-- lib/
-  - leagues.ts                — league metadata (names, flags, logos, tiers)
-  - wiki.ts                   — Wikipedia API helpers (PageImages, search)
-  - wikidata.ts               — SPARQL helpers (teams, P154 crest fallback)
-  - mlb.ts                    — MLB Stats API helpers
+### Install and run
 
-Data sources
+```bash
+# 1) Install dependencies
+npm install
 
-- Wikipedia REST/Action API — articles, thumbnails, search
-- Wikidata SPARQL — accurate current participants and crest fallback (P154)
-- MLB Stats API — rosters and player stats
+# 2) Start the dev server on port 3010
+npm run dev
 
-Notes on images/logos
+# 3) Open the app
+# http://localhost:3010
+```
 
-- The app prefers PageImages (thumbnail) for a team name.
-- If unavailable, it queries Wikidata for property P154 (logo) and normalizes Commons URLs to a fetchable Special:FilePath with a width parameter.
-- Some teams may have neither asset; those will show the default fallback until data exists.
+---
 
-Accuracy and tiers/divisions
+## Useful scripts
 
-- For the top European leagues (Premier League, La Liga, Bundesliga, Serie A, Ligue 1), the app requests current season participants from Wikidata. A tier switcher is provided for second divisions.
-- For US leagues (MLB/NBA/NFL/NHL) the app exposes divisions as tiers. Participants are pulled via the same SPARQL pattern and cached.
+```bash
+# Free ports 3000, 3001, and 3010 on macOS
+npm run ports:kill
 
-Troubleshooting
+# Start Next Dev on 3010
+npm run dev
 
-- Icons not appearing: hard refresh. If still missing, the page likely lacks both PageImage and P154 crest. Add a crest to Wikidata, or pin a manual fallback.
-- SPARQL rate limits: the app handles empty/failed responses gracefully and falls back to category lists when needed.
-- Port in use: run npm run ports:kill.
+# Build for production
+npm run build
 
-Deploy notes
+# Run the production server on 3010
+npm run start
+```
 
-- The app does not require secrets for the public APIs used here.
-- If deploying behind a static CDN, ensure Next.js server rendering is supported (or adapt to static where possible).
+---
 
-Committing and pushing
+## Project structure
 
-1) Create a commit locally
+```
+app/
+  page.tsx                   Home
+  layout.tsx                 Global layout with inlined global styles
+  league/[league]/page.tsx   League page with tiers, sorting, and team list
+  article/[lang]/[title]/    Hosted Wikipedia article route
+  mlb/player/[id]/page.tsx   MLB player stats page
+  milb/                      MiLB lists and team roster pages
 
-   git add .
-   git commit -m "docs: add README and improve logos/spacing"
+components/
+  Autocomplete.tsx           Site search using a Wikipedia OpenSearch proxy
+  Breadcrumbs.tsx            Left rail breadcrumbs
+  TierControls.tsx           Tier or division selector with persistence
+  Toc.tsx                    Dynamic table of contents for the right rail
 
-2) Push to your origin (replace with your remote)
+lib/
+  leagues.ts                 League metadata such as names, flags, logos, tiers
+  wiki.ts                    Wikipedia API helpers for PageImages and search
+  wikidata.ts                SPARQL helpers for teams and P154 crest fallback
+  mlb.ts                     MLB Stats API helpers
+```
 
-   git push origin main
+---
 
-License
+## Data sources
 
-This project contains content from Wikipedia/Wikidata which is licensed under CC BY‑SA and other licenses per file level. Use according to their terms.
+* **Wikipedia REST and Action API** for articles, thumbnails, and search
+* **Wikidata SPARQL** for accurate current participants and crest fallback via property P154
+* **MLB Stats API** for MiLB rosters and MLB player stats
 
+---
 
+## Images and logos
+
+Sportspedia follows a simple rule for team imagery.
+
+1. Try **Wikipedia PageImages** for a thumbnail associated with the team page.
+2. If missing, query **Wikidata P154** for the official crest or logo.
+3. Normalize Wikimedia Commons URLs to a **Special:FilePath** format with a width parameter for consistent delivery.
+4. If neither is available, show the default fallback until the data exists.
+
+---
+
+## Accuracy, tiers, and divisions
+
+* For the top European leagues (Premier League, La Liga, Bundesliga, Serie A, Ligue 1) Sportspedia requests **current season participants** from Wikidata. A tier switcher is available for second divisions.
+* For US leagues (MLB, NBA, NFL, NHL) divisions appear as tiers. Participants are pulled with the same SPARQL pattern and cached.
+
+---
+
+## Troubleshooting
+
+**Icons not appearing**
+Perform a hard refresh. If assets are still missing, the page likely lacks both a PageImage and a P154 crest. Consider adding a crest to Wikidata or pin a manual fallback.
+
+**SPARQL rate limits**
+The app handles empty or failed responses and falls back to category lists when needed.
+
+**Port already in use**
+Run `npm run ports:kill` to free common Next ports on macOS.
+
+---
+
+## Deploy notes
+
+* No secrets are required for the public APIs used by this project.
+* If you deploy behind a static CDN, make sure your setup supports Next.js server rendering or adapt routes to static where possible.
+
+---
+
+## Committing and pushing
+
+```bash
+# Create a commit locally
+git add .
+git commit -m "docs: add README and improve logos/spacing"
+
+# Push to your origin
+git push origin main
+```
+
+---
+
+## License
+
+This project renders and redistributes content from Wikipedia and Wikidata. These sources are licensed under **CC BY-SA** and other licenses on a per-file basis. Use all third-party content according to its original terms.
