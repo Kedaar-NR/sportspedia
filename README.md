@@ -2,6 +2,9 @@
 
 A fast, sports-first reader built with Next.js. Browse leagues, jump to teams, and read hosted Wikipedia articles without leaving the site. Baseball coverage includes live MiLB rosters and MLB player pages with season and career stats, all from official public APIs.
 
+<img width="1177" height="509" alt="image" src="https://github.com/user-attachments/assets/f648283b-a251-4fb1-97a7-144fc25826da" />
+
+
 ## Table of contents
 
 * Features
